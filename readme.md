@@ -5,7 +5,7 @@
 
 ```
 cd base && \
-docker build -t pranavmishra90/quarto-containerized-base -f dockerfile.base .
+docker build -t pranavmishra90/quarto-containerized-base:nightly -f dockerfile.base .
 ```
 
 
@@ -13,7 +13,7 @@ docker build -t pranavmishra90/quarto-containerized-base -f dockerfile.base .
 
 ```
 cd r-studio && \
-docker build -t pranavmishra90/quarto-containerized-rstudio -f dockerfile .
+docker build -t pranavmishra90/quarto-containerized-rstudio:nightly -f dockerfile .
 ```
 
 ## Development

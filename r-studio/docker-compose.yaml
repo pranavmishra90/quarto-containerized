@@ -30,7 +30,7 @@ services:
       - "3333:3333"
       - "8787:8787"
     volumes:
-      - /volume1/Pranav/Research/research-reference:/home/work/research-reference
+      - /volume1/Pranav/Research/research-reference:/home/rstudio/research-reference
     environment:
       - PASSWORD=$PASS
     labels:
