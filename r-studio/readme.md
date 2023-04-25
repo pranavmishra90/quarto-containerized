@@ -2,6 +2,10 @@
 
 When I am developing this container at home, I use a personal domain name that uses Traefik v2 as a reverse-proxy. The labels you see in the docker compose file are specific to that setup. A generic docker-compose.yaml file is pasted below. You will also need to create a `.env` file to hold your password. See the `.env.example` file as a reference.
 
+````sh
+docker run --rm -ti -p 8989:8787 -e USERID=1000 -e GROUPID=1000 --user rstudio rocker/tidyverse
+````
+
 ````yaml
 ####################################
 #         Docker-Compose           #
