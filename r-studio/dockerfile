@@ -1,10 +1,10 @@
-FROM rocker/tidyverse
+FROM pranavmishra90/quarto-containerized-base:latest
 
 #########################
-ARG IMAGE_VERSION="0.0.1"
+ARG IMAGE_VERSION="0.0.2"
 #########################
 
-LABEL org.opencontainers.image.title="Quarto-containerized-base"
+LABEL org.opencontainers.image.title="Quarto-Containerized-R-Studio"
 LABEL version=${IMAGE_VERSION}}
 LABEL org.opencontainers.image.version=${IMAGE_VERSION}}
 LABEL org.opencontainers.image.authors='Pranav Kumar Mishra'
@@ -12,32 +12,17 @@ LABEL description="Using Quarto in an R-Studio Environment via Rocker"
 LABEL org.opencontainers.image.source="https://github.com/pranavmishra90/quarto-containerized"
 LABEL org.opencontainers.image.licenses="MIT"
 
-
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    curl \
-    gdebi-core \
-    pandoc \
-    pandoc-citeproc \
-    wget \
-    && rm -rf /var/lib/apt/lists/*
-
-## Install Python
-RUN wget --no-check-certificate -O /root/Mambaforge.sh  https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Linux-x86_64.sh
-RUN bash /root/Mambaforge.sh -b
-
-
-## Install Quarto
-RUN wget --no-check-certificate -O /root/quarto-linux-amd64.deb https://quarto.org/download/latest/quarto-linux-amd64.deb
-RUN gdebi --non-interactive /root/quarto-linux-amd64.deb
-
 ## Install VSCode
 RUN # install VS Code (code-server)
 RUN curl -fsSL https://code-server.dev/install.sh | sh
+# RUN systemctl enable --now code-server@$USER
 RUN code-server --install-extension mblode.zotero \
                 --install-extension SimonSiefke.svg-preview \
                 -- eamodio.gitlens \
                 -- ms-vsliveshare.vsliveshare \ 
                 -- quarto.quarto
+
+
 
 CMD ["bash"]
 

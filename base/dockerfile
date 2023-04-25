@@ -1,7 +1,7 @@
-FROM ubuntu:latest
+FROM rocker/tidyverse
 
 #########################
-ARG IMAGE_VERSION="0.0.1"
+ARG IMAGE_VERSION="0.0.3"
 #########################
 
 LABEL org.opencontainers.image.title="Quarto-containerized-base"
@@ -19,14 +19,18 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     gdebi-core \
     pandoc \
     pandoc-citeproc \
+    systemd \
     wget \
     && rm -rf /var/lib/apt/lists/*
 
-RUN wget --no-check-certificate -O Mambaforge.sh  https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Linux-x86_64.sh
+## Install Python
+RUN wget --no-check-certificate -O /root/Mambaforge.sh  https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Linux-x86_64.sh
+RUN bash /root/Mambaforge.sh -b
 
 
-RUN wget --no-check-certificate https://quarto.org/download/latest/quarto-linux-amd64.deb
-RUN gdebi --non-interactive quarto-linux-amd64.deb
+## Install Quarto
+RUN wget --no-check-certificate -O /root/quarto-linux-amd64.deb https://quarto.org/download/latest/quarto-linux-amd64.deb
+RUN gdebi --non-interactive /root/quarto-linux-amd64.deb
 
 CMD ["bash"]
 
