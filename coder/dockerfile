@@ -1,0 +1,30 @@
+FROM pranavmishra90/quarto-containerized-base:latest
+
+#########################
+ARG IMAGE_VERSION="0.0.2"
+#########################
+
+LABEL org.opencontainers.image.title="Quarto-Containerized-R-Studio"
+LABEL version=${IMAGE_VERSION}}
+LABEL org.opencontainers.image.version=${IMAGE_VERSION}}
+LABEL org.opencontainers.image.authors='Pranav Kumar Mishra'
+LABEL description="Using Quarto in an R-Studio Environment via Rocker"
+LABEL org.opencontainers.image.source="https://github.com/pranavmishra90/quarto-containerized"
+LABEL org.opencontainers.image.licenses="MIT"
+
+## Install VSCode
+RUN # install VS Code (code-server)
+RUN curl -fsSL https://code-server.dev/install.sh | sh
+# RUN systemctl enable --now code-server@$USER
+RUN code-server --install-extension mblode.zotero \
+                --install-extension SimonSiefke.svg-preview \
+                -- eamodio.gitlens \
+                -- ms-vsliveshare.vsliveshare \ 
+                -- quarto.quarto
+
+
+
+CMD ["/init"]
+
+# The MIT License (MIT)
+# Copyright (c) 2022 Pranav Kumar Mishra
