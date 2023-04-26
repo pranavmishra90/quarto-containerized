@@ -5,7 +5,7 @@
 
 ```
 cd base && \
-docker build -t pranavmishra90/quarto-containerized-base:nightly -f dockerfile.base .
+docker build -t pranavmishra90/quarto-containerized-base:nightly -f dockerfile .
 ```
 
 

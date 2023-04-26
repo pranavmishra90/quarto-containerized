@@ -24,7 +24,7 @@ RUN code-server --install-extension mblode.zotero \
 
 
 
-CMD ["bash"]
+CMD ["/init"]
 
 # The MIT License (MIT)
 # Copyright (c) 2022 Pranav Kumar Mishra
