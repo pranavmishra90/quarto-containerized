@@ -51,15 +51,3 @@ services:
       ## HTTP Services
       - "traefik.http.routers.rstudio-rtr.service=rstudio-svc"
       - "traefik.http.services.rstudio-svc.loadbalancer.server.port=8787"
-      
-      # Quarto -------------------------------------------------------------------
-      ## HTTP Routers
-      - "traefik.http.routers.quarto-rtr.entrypoints=https"
-      - "traefik.http.routers.quarto-rtr.tls=true"
-      - "traefik.http.routers.quarto-rtr.rule=Host(`quarto.$DOMAINNAME`)"
-      ## Middlewares
-      # - "traefik.http.routers.quarto-rtr.middlewares=chain-no-auth@file"
-      - "traefik.http.routers.quarto-rtr.middlewares=chain-authelia@file"
-      ## HTTP Services
-      - "traefik.http.routers.quarto-rtr.service=quarto-svc"
-      - "traefik.http.services.quarto-svc.loadbalancer.server.port=3333"
