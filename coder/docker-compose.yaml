@@ -20,11 +20,11 @@ networks:
 
 services:
   quarto-r:
-    image: pranavmishra90/quarto-containerized-base:nightly
+    image: pranavmishra90/quarto-containerized-coder:nightly
     # build:
     #   context: ./
     #   dockerfile: dockerfile
-    container_name: Quarto-R-Studio
+    container_name: Quarto
     networks:
       - traefik_external
       - default

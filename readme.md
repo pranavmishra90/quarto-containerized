@@ -13,7 +13,7 @@ docker build -t pranavmishra90/quarto-containerized-base:nightly -f dockerfile .
 
 ```
 cd r-studio && \
-docker build -t pranavmishra90/quarto-containerized-rstudio:nightly -f dockerfile .
+docker build -t pranavmishra90/quarto-containerized-coder:nightly -f dockerfile .
 ```
 
 ## Development
