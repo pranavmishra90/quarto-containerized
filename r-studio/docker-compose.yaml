@@ -1,0 +1,65 @@
+####################################
+#         Docker-Compose           #
+####################################
+version: "3"
+
+####################################
+#            Networks              #
+####################################
+
+networks:
+  traefik_external:
+    external:
+      name: traefik_external
+  default:
+    driver: bridge
+
+####################################
+#            Services              #
+####################################
+
+services:
+  quarto-r:
+    image: pranavmishra90/quarto-containerized-base:nightly
+    # build:
+    #   context: ./
+    #   dockerfile: dockerfile
+    container_name: Quarto-R-Studio
+    networks:
+      - traefik_external
+      - default
+    ports:
+      - "3333:3333"
+      - "8787:8080"
+    volumes:
+      - /volume1/Pranav/Research:/home/rstudio/research:rw
+    environment:
+      - PASSWORD=$PASS
+      - USERID=$UID
+      - GROUPID=$GID
+      - ROOT=true #allows you to execute sudo commands
+    labels:
+      - "traefik.enable=true"
+      # R Studio -------------------------------------------------------------------
+      ## HTTP Routers
+      - "traefik.http.routers.rstudio-rtr.entrypoints=https"
+      - "traefik.http.routers.rstudio-rtr.tls=true"
+      - "traefik.http.routers.rstudio-rtr.rule=Host(`rstudio.$DOMAINNAME`)"
+      ## Middlewares
+      # - "traefik.http.routers.rstudio-rtr.middlewares=chain-no-auth@file"
+      - "traefik.http.routers.rstudio-rtr.middlewares=chain-authelia@file"
+      ## HTTP Services
+      - "traefik.http.routers.rstudio-rtr.service=rstudio-svc"
+      - "traefik.http.services.rstudio-svc.loadbalancer.server.port=8787"
+      
+      # Quarto -------------------------------------------------------------------
+      ## HTTP Routers
+      - "traefik.http.routers.quarto-rtr.entrypoints=https"
+      - "traefik.http.routers.quarto-rtr.tls=true"
+      - "traefik.http.routers.quarto-rtr.rule=Host(`quarto.$DOMAINNAME`)"
+      ## Middlewares
+      # - "traefik.http.routers.quarto-rtr.middlewares=chain-no-auth@file"
+      - "traefik.http.routers.quarto-rtr.middlewares=chain-authelia@file"
+      ## HTTP Services
+      - "traefik.http.routers.quarto-rtr.service=quarto-svc"
+      - "traefik.http.services.quarto-svc.loadbalancer.server.port=3333"
